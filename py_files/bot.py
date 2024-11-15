@@ -4,10 +4,10 @@ import time
 import datetime
 import math
 
-bot = telebot.TeleBot("123456") #токен бота
-commands_switch = {"start" :["sh start_server.sh", "time_out_on", "all_users_message_on"],
-                   "stop"  :["sh stop_server.sh",  "time_out_on", "all_users_message_on"],
-                   "status":["sh status_server.sh","time_out_off","all_users_message_off"]}
+bot = telebot.TeleBot("8192120437:AAHRocjwtwNbaXpnYbhV5CCtMA37083xFbg") #токен бота
+commands_switch = {"start" :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
+                   "stop"  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
+                   "status":["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
 
 time_last_call = datetime.datetime(2011,11,11,11,11)
 time_out=10.0

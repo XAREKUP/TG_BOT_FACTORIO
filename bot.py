@@ -4,7 +4,7 @@ import time
 import datetime
 import math
 
-bot = telebot.TeleBot("7696433195:AAFAd3PZcijsClJ7aUHtnS_Cjv12cYIvLs0") #токен бота
+bot = telebot.TeleBot("123456") #токен бота
 commands_switch = {"start" :["sh start_server.sh", "time_out_on", "all_users_message_on"],
                    "stop"  :["sh stop_server.sh",  "time_out_on", "all_users_message_on"],
                    "status":["sh status_server.sh","time_out_off","all_users_message_off"]}

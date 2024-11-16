@@ -12,7 +12,8 @@ Description=Factorio Headless Server
 
 [Service]
 Type=simple
-ExecStart=/opt/factorio/bin/x64/factorio --start-server /opt/factorio/saves/world.zip" | sudo tee /etc/systemd/user/factorio_server.service
+ExecStart=/opt/factorio/bin/x64/factorio --start-server /opt/factorio/saves/world.zip  --rcon-port 25575 --rcon-password '123'
+" | sudo tee /etc/systemd/user/factorio_server.service
 
 sudo /opt/factorio/bin/x64/factorio --create /opt/factorio/saves/world.zip
 sudo chmod 777 /opt/factorio -R

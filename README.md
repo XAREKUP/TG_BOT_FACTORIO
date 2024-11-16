@@ -1,8 +1,8 @@
-SERVER CONTROL
-/start_server
-/stop_server
-/status_server
+SERVER CONTROL  
+/start_server  
+/stop_server  
+/status_server  
 
-RCON COMMAND
-/send_text
-/players
+RCON COMMAND  
+/send_text  
+/players  

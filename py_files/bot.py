@@ -6,9 +6,9 @@ import datetime
 import math
 
 bot = telebot.TeleBot("TOKEN") #токен бота
-commands_switch = {"/start_server" :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
-                   "/stop_server"  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
-                   "/status_server":["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
+commands_switch = {'start_server' :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
+                   'stop_server'  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
+                   'status_server':["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
 
 time_last_call = datetime.datetime(2011,11,11,11,11)
 time_out=5.0
@@ -17,7 +17,7 @@ def command_executer(message):
    global time_last_call
    time_diff = (datetime.datetime.now() - time_last_call).total_seconds()
    if (1 == 1): #проверяем, что пишет именно владелец
-      command = message.text  #текст сообщения
+      command = message.text[1::]  #текст сообщения
       command = command.lower()
       try:
          if(commands_switch[command][1] == "time_out_on"):
@@ -43,20 +43,12 @@ def help_bot(message):
    mass = list(commands_switch.keys())
    text_str = ""
    for i in mass:
-      text_str = text_str + i + '\n'
+      text_str = text_str + '/' + i + '\n'
    bot.send_message(message.chat.id, text_str)
 
 #####SERVER CONTROL#####
-@bot.message_handler(commands=['status_server'])
+@bot.message_handler(commands=list(commands_switch.keys()))
 def status_server(message):
-   command_executer(message)
-
-@bot.message_handler(commands=['start_server'])
-def start_server(message):
-   command_executer(message)
-
-@bot.message_handler(commands=['stop_server'])
-def stop_server(message):
    command_executer(message)
 
 #@bot.message_handler(content_types=["text"])

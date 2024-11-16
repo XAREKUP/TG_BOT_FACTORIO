@@ -16,7 +16,29 @@ time_out=5.0
 
 users_filename = 'users.txt'
 
+def collect_data_user(message):
+   if(os.path.isfile(users_filename) == False):
+      with open(users_filename, 'w') as fp:
+         pass
+
+   file_str = open(users_filename, 'r')
+   lines = file_str.readlines()
+   #bot.send_message(message.chat.id, str(lines))
+   file_str.close()
+
+   str_user = str(message.chat.id) + ' ' + message.from_user.first_name \
+              + ' ' + message.from_user.last_name + ' ' +message.from_user.username + '\n'
+
+   #bot.send_message(message.chat.id, str_user)
+   if((str_user in lines) == False):
+      file_str = open(users_filename, 'a')
+      file_str.write(str_user)
+      file_str.close()
+
+
 def command_executer(message):
+   collect_data_user(message)
+
    global time_last_call
    time_diff = (datetime.datetime.now() - time_last_call).total_seconds()
    if (1 == 1): #проверяем, что пишет именно владелец
@@ -52,24 +74,6 @@ def command_executer(message):
 ########BOT HELP########
 @bot.message_handler(commands=['start'])
 def start_bot(message):
-   if(os.path.isfile(users_filename) == False):
-      with open(users_filename, 'w') as fp:
-         pass
-
-   file_str = open(users_filename, 'r')
-   lines = file_str.readlines()
-   #bot.send_message(message.chat.id, str(lines))
-   file_str.close()
-
-   str_user = str(message.chat.id) + ' ' + message.from_user.first_name \
-              + ' ' + message.from_user.last_name + ' ' +message.from_user.username + '\n'
-
-   #bot.send_message(message.chat.id, str_user)
-   if((str_user in lines) == False):
-      file_str = open(users_filename, 'a')
-      file_str.write(str_user)
-      file_str.close()
-
    help_bot(message)
 
 @bot.message_handler(commands=['help'])
@@ -82,7 +86,7 @@ def help_bot(message):
 
 #####SERVER CONTROL#####
 @bot.message_handler(commands=list(commands_switch.keys()))
-def status_server(message):
+def control_server(message):
    command_executer(message)
 
 #@bot.message_handler(content_types=["text"])

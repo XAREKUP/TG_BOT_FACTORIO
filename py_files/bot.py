@@ -1,42 +1,21 @@
+from bot_commands import *
 from subprocess import check_output
 import telebot
 import time
 import datetime
 import math
 
-bot = telebot.TeleBot("8192120437:AAHRocjwtwNbaXpnYbhV5CCtMA37083xFbg") #токен бота
-commands_switch = {"start" :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
-                   "stop"  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
-                   "status":["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
+bot = telebot.TeleBot("TOKEN") #токен бота
+commands_switch = {"/start_server" :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
+                   "/stop_server"  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
+                   "/status_server":["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
 
 time_last_call = datetime.datetime(2011,11,11,11,11)
-time_out=10.0
+time_out=5.0
 
-
-
-def send_message_id(message, id):
-   bot.send_message(id, message)
-
-
-
-@bot.message_handler(content_types=["text"])
-
-def main(message):
+def command_executer(message):
    global time_last_call
    time_diff = (datetime.datetime.now() - time_last_call).total_seconds()
-
-#   exist_line = False
-#   with open('users.txt') as f:
-#      for line in f:
-#         if ((str(message.from_user.id) + " " + message.from_user.username) == line):
-#            exist_line = True
-
-#   if(exist_line == False):
-#      users_file = open('users.txt', 'a')
-#      users_file.write(str(message.from_user.id) + " " + message.from_user.username)
-#      users_file.close()
-
-
    if (1 == 1): #проверяем, что пишет именно владелец
       command = message.text  #текст сообщения
       command = command.lower()
@@ -53,19 +32,37 @@ def main(message):
       except:
          bot.send_message(message.chat.id, 'error: ' + command) #если команда некорректна
 
-#      try:
-#         if(commands_switch[command][2] == "all_users_message_on"):
-#            with open('users.txt') as f:
-#               for line in f:
-#                  data = line.split()
-#                  bot.send_message(user_id, data[1])
-#                  bot.send_message(int(data[0]), message.from_user.username + ": "+ command)
-#      except:
-#         pass
 
-if __name__ == '__main__':
-    while True:
-        try: #добавляем try для бесперебойной работы
-            bot.polling(none_stop=True) #запуск бота
-        except:
-            time.sleep(10) #в случае падения
+########BOT HELP########
+@bot.message_handler(commands=['start'])
+def start_bot(message):
+   help_bot(message)
+
+@bot.message_handler(commands=['help'])
+def help_bot(message):
+   mass = list(commands_switch.keys())
+   text_str = ""
+   for i in mass:
+      text_str = text_str + i + '\n'
+   bot.send_message(message.chat.id, text_str)
+
+#####SERVER CONTROL#####
+@bot.message_handler(commands=['status_server'])
+def status_server(message):
+   command_executer(message)
+
+@bot.message_handler(commands=['start_server'])
+def start_server(message):
+   command_executer(message)
+
+@bot.message_handler(commands=['stop_server'])
+def stop_server(message):
+   command_executer(message)
+
+#@bot.message_handler(content_types=["text"])
+
+while True:
+   try: #добавляем try для бесперебойной работы
+      bot.polling(none_stop=True) #запуск бота
+   except:
+      time.sleep(10) #в случае падения

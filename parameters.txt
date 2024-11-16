@@ -1,0 +1,6 @@
+tg_token = 
+time_out = 
+users_filename =
+rcon_ip = 
+rcon_password =
+rcon_port = 

@@ -7,7 +7,7 @@ import datetime
 import math
 import os
 
-bot = telebot.TeleBot("TOKEN") #токен бота
+bot = telebot.TeleBot("7836585826:AAGAsVJ4TLDGEc1mvrN-W_P5pCnECZblCPk") #токен бота
 
 commands_switch = {'start_server' :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
                    'stop_server'  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],

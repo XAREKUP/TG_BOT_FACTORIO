@@ -5,6 +5,7 @@ echo "****************START****************"
 sudo apt install unzip
 sudo apt install pip
 sudo pip install pytelegrambotapi --break-system-packages
+sudo pip install rcon --break-system-packages
 
 # Запрос значений параметров у пользователя
 read -p "Enter your Telegram token: " tg_token

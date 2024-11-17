@@ -1,11 +1,7 @@
 from bot_function import *
 from rcon_function import *
-from subprocess import check_output
-import telebot
-import time
-import datetime
-import math
-import os
+
+#Как нибудь надо это всё в класс запихать и в main оставить только создание объекта, инициализация и бесконечный цикл
 
 commands_switch = {'start_server' :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
                    'stop_server'  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],

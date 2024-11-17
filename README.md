@@ -17,4 +17,5 @@ script_install.sh
 ## Команды `RCON`  для отправки сообщений на сервер `Factorio`
 
 `/send_text`  
-`/players`
+`/players`   
+`/server-save`

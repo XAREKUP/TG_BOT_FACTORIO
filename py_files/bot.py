@@ -7,19 +7,12 @@ import datetime
 import math
 import os
 
-bot = telebot.TeleBot("7836585826:AAGAsVJ4TLDGEc1mvrN-W_P5pCnECZblCPk") #токен бота
-
 commands_switch = {'start_server' :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
                    'stop_server'  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
                    'status_server':["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
 
 rcon_commands_switch = {'send_text' : [send_text, "send_answer_off"],
                         'players'   : [players,   "send_answer_on"]}
-
-time_last_call = datetime.datetime(2011,11,11,11,11)
-time_out=5.0
-
-#users_filename = 'users.txt'
 
 parameters_filename = 'parameters.txt'
 file_param = open(parameters_filename, 'r')
@@ -34,8 +27,10 @@ for line in lines_param:
    parameters_switch[line[0]] = line[1]
 #print(str(parameters_switch))
 
+bot = telebot.TeleBot(parameters_switch['tg_token']) #токен бота
+time_out=float(parameters_switch['time_out'])
 users_filename = parameters_switch['users_filename']
-
+time_last_call = datetime.datetime(2011,11,11,11,11)
 
 def collect_data_user(message):
    if(os.path.isfile(users_filename) == False):

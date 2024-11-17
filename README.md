@@ -1,7 +1,11 @@
-### Для установки сервера и настройки бота запустить скрипт `script_install.sh` и усствновить зависимости Python командой:
+### Для установки сервера и настройки бота запустить скрипт `script_install.sh` и установить зависимости Python командой и запустить:
 
 ```
 pip install -r requirements.txt
+```
+
+```
+script_install.sh
 ```
 
 ## Команды для управления сервером
@@ -14,4 +18,3 @@ pip install -r requirements.txt
 
 `/send_text`  
 `/players`
-

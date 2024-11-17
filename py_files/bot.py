@@ -21,6 +21,20 @@ time_out=5.0
 
 users_filename = 'users.txt'
 
+parameters_filename = 'parameters.txt'
+file_param = open(parameters_filename, 'r')
+lines_param = file_param.readlines()
+file_param.close()
+#print(str(lines_param))
+
+parameters_switch = {}
+for line in lines_param:
+   line = line.split()
+   #print(str(line))
+   parameters_switch[line[0]] = line[1]
+print(str(parameters_switch))
+
+
 def collect_data_user(message):
    if(os.path.isfile(users_filename) == False):
       with open(users_filename, 'w') as fp:

@@ -15,7 +15,7 @@ rcon_commands_switch = {'send_message'  : [send_message, "send_answer_off"],
                         'players'    : [players,   "send_answer_on"],
                         'server_save': [server_save, "send_answer_on"]}
 
-parameters_filename = 'parameters.txt'
+parameters_filename = 'data/parameters.txt'
 file_param = open(parameters_filename, 'r')
 lines_param = file_param.readlines()
 file_param.close()

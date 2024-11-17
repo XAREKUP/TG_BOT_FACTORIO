@@ -25,12 +25,12 @@ read -p "Enter the password for RCON: " rcon_password
 read -p "Enter the port for RCON: " rcon_port
 
 # Сохранение параметров в файл
-echo "tg_token ${tg_token}" > ./parameters.txt
-echo "time_out ${time_out}" >> ./parameters.txt
-echo "users_filename ${users_filename}" >> ./parameters.txt
+echo "tg_token ${tg_token}" > ./data/parameters.txt
+echo "time_out ${time_out}" >> ./data/parameters.txt
+echo "users_filename ./data/${users_filename}" >> ./data/parameters.txt
 #echo "rcon_ip ${rcon_ip}" >> ./parameters.txt
-echo "rcon_password ${rcon_password}" >> ./parameters.txt
-echo "rcon_port ${rcon_port}" >> ./parameters.txt
+echo "rcon_password ${rcon_password}" >> ./data/parameters.txt
+echo "rcon_port ${rcon_port}" >> ./data/parameters.txt
 
 # Установка Factorio
 sudo wget -O factorio_headless.tar.gz https://factorio.com/get-download/stable/headless/linux64

@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 py_files/bot.py
+python3 py_files/main.py

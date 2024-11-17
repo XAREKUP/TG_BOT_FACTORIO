@@ -1,6 +1,5 @@
-tg_token = 
-time_out = 
-users_filename =
-rcon_ip = 
-rcon_password =
-rcon_port = 
+tg_token: 7836585826:AAGAsVJ4TLDGEc1mvrN-W_P5pCnECZblCPk
+time_out: 5
+users_filename: users.txt
+rcon_password 123
+rcon_port 25575

@@ -19,7 +19,7 @@ rcon_commands_switch = {'send_text' : [send_text, "send_answer_off"],
 time_last_call = datetime.datetime(2011,11,11,11,11)
 time_out=5.0
 
-users_filename = 'users.txt'
+#users_filename = 'users.txt'
 
 parameters_filename = 'parameters.txt'
 file_param = open(parameters_filename, 'r')
@@ -32,7 +32,9 @@ for line in lines_param:
    line = line.split()
    #print(str(line))
    parameters_switch[line[0]] = line[1]
-print(str(parameters_switch))
+#print(str(parameters_switch))
+
+users_filename = parameters_switch['users_filename']
 
 
 def collect_data_user(message):
@@ -97,7 +99,7 @@ def rcon_command_executer(message):
    #bot.send_message(message.chat.id, 'rcon')
    command = message.text[1::].split()
    #bot.send_message(message.chat.id, message.from_user.username + ": " + ' '.join(command[1::]))
-   response = rcon_commands_switch[command[0]][0](message.from_user.username + ": " + ' '.join(command[1::]))
+   response = rcon_commands_switch[command[0]][0](message.from_user.username + ": " + ' '.join(command[1::]), parameters_switch)
 
    if(rcon_commands_switch[command[0]][1] == "send_answer_on"):
       bot.send_message(message.chat.id, response)

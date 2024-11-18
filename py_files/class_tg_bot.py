@@ -46,12 +46,12 @@ class tg_bot:
       #####SERVER CONTROL#####
       @self.bot.message_handler(commands=list(self.commands_switch.keys()))
       def control_server(message):
-         command_executer(message, self.commands_switch, self.parameters_switch, self.bot, self.time_last_call)
+         command_executer(message, self)
 
       #######RCON COMMAND#######
       @self.bot.message_handler(commands=list(self.rcon_commands_switch.keys()))
       def rcon_command(message):
-         rcon_command_executer(message, self.rcon_commands_switch, self.parameters_switch, self.bot)
+         rcon_command_executer(message, self)
 
       #@self.bot.message_handler(content_types=["text"])
 

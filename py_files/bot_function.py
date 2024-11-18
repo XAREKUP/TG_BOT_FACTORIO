@@ -25,12 +25,25 @@ def collect_data_user(message, tg_bot_self):
       file_str.write(str_user)
       file_str.close()
 
+def all_user_message(message, tg_bot_self, command, time_diff, time_out):
+   users_filename = tg_bot_self.parameters_switch['users_filename']
+   if(tg_bot_self.commands_switch[command[0]][2] == "all_users_message_on" and \
+      not (tg_bot_self.commands_switch[command[0]][1] == "time_out_on" and time_diff < time_out)):
+      file_str = open(users_filename, 'r')
+      lines = file_str.readlines()
+      #tg_bot_self.bot.send_message(message.chat.id, str(lines))
+      file_str.close()
+
+      for line in lines:
+         id = int(line.split()[0])
+         if(id == id): #!= message.chat.id):
+            str_text = message.from_user.username + ": " + command[0]
+            tg_bot_self.bot.send_message(id, str_text)
+
 def rcon_command_executer(message, tg_bot_self):
    collect_data_user(message, tg_bot_self)
 
-   tg_bot_self.bot.send_message(message.chat.id, 'rcon')
    command = message.text[1::].split()
-   #tg_bot_self.bot.send_message(message.chat.id, message.from_user.username + ": " + ' '.join(command[1::]))
    response = tg_bot_self.rcon_commands_switch[command[0]][0](message.from_user.username + ": " + ' '.join(command[1::]), tg_bot_self.parameters_switch)
 
    if(tg_bot_self.rcon_commands_switch[command[0]][1] == "send_answer_on"):
@@ -39,35 +52,18 @@ def rcon_command_executer(message, tg_bot_self):
 def command_executer(message,  tg_bot_self):
    collect_data_user(message, tg_bot_self)
 
-   time_diff = (datetime.datetime.now() - tg_bot_self.time_last_call).total_seconds()
-   #tg_bot_self.bot.send_message(message.chat.id, str(time_diff))
+   command = message.text[1::].split()
    time_out = int(tg_bot_self.parameters_switch['time_out'])
 
-   if (1 == 1): #проверяем, что пишет именно владелец
-      command = message.text[1::]  #текст сообщения
-      command = command.lower()
-
-      if(tg_bot_self.commands_switch[command][1] == "time_out_on"):
-         if(time_diff >= time_out):
-            tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command][0], shell = True))
-            #tg_bot_self.bot.send_message(message.chat.id,str(tg_bot_self.time_last_call))
-            tg_bot_self.time_last_call = datetime.datetime.now()
-            #tg_bot_self.bot.send_message(message.chat.id,str(tg_bot_self.time_last_call))
-         else:
-            tg_bot_self.bot.send_message(message.chat.id, "Timeout: " + str(round(time_diff, 1)) + "/" + str(time_out))
+   if(tg_bot_self.commands_switch[command[0]][1] == "time_out_off"):
+      tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command[0]][0], shell = True))
+   else:
+      time_diff = (datetime.datetime.now() - tg_bot_self.time_last_call).total_seconds()
+      if(time_diff >= time_out):
+         tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command[0]][0], shell = True))
+         tg_bot_self.time_last_call = datetime.datetime.now()
       else:
-         tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command][0], shell = True))
+         tg_bot_self.bot.send_message(message.chat.id, "Timeout: " + str(round(time_diff, 1)) + "/" + str(time_out))
 
-      users_filename = tg_bot_self.parameters_switch['users_filename']
-      if(tg_bot_self.commands_switch[command][2] == "all_users_message_on" and \
-         not (tg_bot_self.commands_switch[command][1] == "time_out_on" and time_diff < time_out)):
-         file_str = open(users_filename, 'r')
-         lines = file_str.readlines()
-         #tg_bot_self.bot.send_message(message.chat.id, str(lines))
-         file_str.close()
 
-         for line in lines:
-            id = int(line.split()[0])
-            if(id == id): #!= message.chat.id):
-               str_text = message.from_user.username + ": " + command
-               tg_bot_self.bot.send_message(id, str_text)
+   all_user_message(message, tg_bot_self, command, time_diff, time_out)

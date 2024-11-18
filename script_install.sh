@@ -2,7 +2,6 @@
 echo "****************START****************"
 
 # Установка зависимостей
-sudo apt install unzip
 sudo apt install pip
 sudo pip install pytelegrambotapi --break-system-packages
 sudo pip install rcon --break-system-packages
@@ -43,11 +42,6 @@ sudo mkdir /opt/factorio/mods
 
 # Изменение прав доступа к папке Factorio
 sudo chmod 777 /opt/factorio -R
-
-# Распаковка бота
-#wget https://github.com/XAREKUP/TG_BOT_FACTORIO/archive/refs/heads/main.zip
-#unzip main.zip -d ./tg_bot_factorio
-#rm main.zip
 
 # Настройка сервера Factorio
 sudo touch /etc/systemd/user/factorio_server.service

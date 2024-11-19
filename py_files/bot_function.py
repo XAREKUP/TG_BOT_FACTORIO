@@ -49,7 +49,7 @@ def rcon_command_executer(message, tg_bot_self):
    text = ''
    if(command[0] == 'send_message'):
       text = text + message.from_user.username + ':'
-   text = text + " " + ''.join(command[1::])
+   text = text + " " + ' '.join(command[1::])
 
    rcon_ip = '127.0.0.1'
    with Client(rcon_ip, int(tg_bot_self.parameters_switch['rcon_port']), passwd = tg_bot_self.parameters_switch['rcon_password']) as client:

@@ -8,7 +8,8 @@ class tg_bot:
 
       self.rcon_commands_switch = {'send_message'  : ["", "send_answer_off"],
                                    'players'       : ["/players",   "send_answer_on"],
-                                   'server_save'   : ["/server-save", "send_answer_on"]}
+                                   'server_save'   : ["/server-save", "send_answer_on"]
+                                  }
 
       parameters_filename = 'data/parameters.txt'
       file_param = open(parameters_filename, 'r')

@@ -1,15 +1,14 @@
 from bot_function import *
-from rcon_function import *
 
 class tg_bot:
    def __init__(self):
       self.commands_switch = {'start_server' :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
-                   'stop_server'  :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
-                   'status_server':["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
+                   'stop_server'             :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
+                   'status_server'           :["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"]}
 
-      self.rcon_commands_switch = {'send_message'  : [send_message, "send_answer_off"],
-                        'players'    : [players,   "send_answer_on"],
-                        'server_save': [server_save, "send_answer_on"]}
+      self.rcon_commands_switch = {'send_message'  : ["", "send_answer_off"],
+                                   'players'       : ["/players",   "send_answer_on"],
+                                   'server_save'   : ["/server-save", "send_answer_on"]}
 
       parameters_filename = 'data/parameters.txt'
       file_param = open(parameters_filename, 'r')

@@ -46,14 +46,13 @@ def rcon_command_executer(message, tg_bot_self):
 
    command = message.text[1::].split()
 
-   text = ''
-   if(command[0] == 'send_message'):
-      text = text + message.from_user.username + ':'
-   text = text + " " + ''.join(command[1::])
+   text = message.from_user.username + ": " + ' '.join(command[0::])
+
 
    rcon_ip = '127.0.0.1'
    with Client(rcon_ip, int(tg_bot_self.parameters_switch['rcon_port']), passwd = tg_bot_self.parameters_switch['rcon_password']) as client:
-      response = client.run(tg_bot_self.rcon_commands_switch[command[0]][0] + text)
+      response = client.run(tg_bot_self.rcon_commands_switch[command[0]][0])
+      client.run(text)
 
       if(tg_bot_self.rcon_commands_switch[command[0]][1] == "send_answer_on"):
          tg_bot_self.bot.send_message(message.chat.id, response)

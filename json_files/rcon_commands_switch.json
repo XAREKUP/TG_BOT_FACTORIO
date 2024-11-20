@@ -1,0 +1,14 @@
+{
+    "send_message": [
+        "",
+        "send_answer_off"
+    ],
+    "players": [
+        "/players",
+        "send_answer_on"
+    ],
+    "server_save": [
+        "/server-save",
+        "send_answer_on"
+    ]
+}

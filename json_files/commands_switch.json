@@ -1,0 +1,22 @@
+{
+    "start_server": [
+        "sh sh_scripts/start_server.sh",
+        "time_out_on",
+        "all_users_message_on"
+    ],
+    "stop_server": [
+        "sh sh_scripts/stop_server.sh",
+        "time_out_on",
+        "all_users_message_on"
+    ],
+    "status_server": [
+        "sh sh_scripts/status_server.sh",
+        "time_out_off",
+        "all_users_message_off"
+    ],
+    "check_version_server": [
+        "sh sh_scripts/check_version_server.sh",
+        "time_out_off",
+        "all_users_message_off"
+    ]
+}

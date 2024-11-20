@@ -1,18 +1,11 @@
 from bot_function import *
 from logging.handlers import RotatingFileHandler
+import json
 
 class tg_bot:
-   def __init__(self):
-      self.commands_switch = {'start_server' :["sh sh_scripts/start_server.sh", "time_out_on", "all_users_message_on"],
-                   'stop_server'             :["sh sh_scripts/stop_server.sh",  "time_out_on", "all_users_message_on"],
-                   'status_server'           :["sh sh_scripts/status_server.sh","time_out_off","all_users_message_off"],
-                   'check_version_server'    :["sh sh_scripts/check_version_server.sh","time_out_off","all_users_message_off"]}
-
-      self.rcon_commands_switch = {'send_message'  : ["", "send_answer_off"],
-                                   'players'       : ["/players",   "send_answer_on"],
-                                   'server_save'   : ["/server-save", "send_answer_on"]
-                                  }
-
+   def __init__(self, commands_switch, rcon_commands_switch):
+      self.commands_switch = commands_switch
+      self.rcon_commands_switch = rcon_commands_switch
       parameters_filename = 'data/parameters.txt'
       file_param = open(parameters_filename, 'r')
       lines_param = file_param.readlines()

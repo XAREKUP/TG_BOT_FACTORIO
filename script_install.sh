@@ -32,7 +32,9 @@ echo "rcon_password ${rcon_password}" >> ./data/parameters.txt
 echo "rcon_port ${rcon_port}" >> ./data/parameters.txt
 
 # Установка Factorio
-sudo wget -O factorio_headless.tar.gz https://factorio.com/get-download/stable/headless/linux64
+version=$(curl -s https://factorio.com/download/sha256sums/ | grep factorio_linux | head -n 1 | grep factorio_linux | grep -oP '[0-9]*\.[0-9]*\.[0-9]*')
+actual_verison_url='https://factorio.com/get-download/'$version'/headless/linux64'
+sudo wget -O factorio_headless.tar.gz $actual_verison_url
 sudo tar -xf factorio_headless.tar.gz
 sudo mv factorio /opt
 sudo rm factorio_headless.tar.gz

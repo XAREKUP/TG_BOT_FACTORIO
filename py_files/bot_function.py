@@ -5,6 +5,20 @@ import time
 import datetime
 import math
 import os
+import logging
+
+def print_help(message, tg_bot_self):
+   text_str = "SERVER CONTROL\n"
+   mass = list(tg_bot_self.commands_switch.keys())
+   for i in mass:
+      text_str = text_str + '/' + i + '\n'
+
+   text_str = text_str + "\nRCON COMMAND\n"
+   mass = list(tg_bot_self.rcon_commands_switch.keys())
+   for i in mass:
+      text_str = text_str + '/' + i + '\n'
+
+   tg_bot_self.bot.send_message(message.chat.id, text_str)
 
 def collect_data_user(message, tg_bot_self):
    users_filename = tg_bot_self.parameters_switch['users_filename']
@@ -63,11 +77,11 @@ def command_executer(message,  tg_bot_self):
 
    command = message.text[1::].split()
    time_out = int(tg_bot_self.parameters_switch['time_out'])
+   time_diff = (datetime.datetime.now() - tg_bot_self.time_last_call).total_seconds()
 
    if(tg_bot_self.commands_switch[command[0]][1] == "time_out_off"):
       tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command[0]][0], shell = True))
    else:
-      time_diff = (datetime.datetime.now() - tg_bot_self.time_last_call).total_seconds()
       if(time_diff >= time_out):
          tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command[0]][0], shell = True))
          tg_bot_self.time_last_call = datetime.datetime.now()

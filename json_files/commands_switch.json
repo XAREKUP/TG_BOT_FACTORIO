@@ -18,5 +18,15 @@
         "sh sh_scripts/check_version_server.sh",
         "time_out_off",
         "all_users_message_off"
+    ],
+    "list_saves": [
+        "sh sh_scripts/list_saves.sh",
+        "time_out_off",
+        "all_users_message_off"
+    ],
+    "put_save_s3": [
+        "sh sh_scripts/put_save_s3.sh",
+        "time_out_off",
+        "all_users_message_off"
     ]
 }

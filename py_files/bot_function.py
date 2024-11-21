@@ -78,12 +78,14 @@ def command_executer(message,  tg_bot_self):
    command = message.text[1::].split()
    time_out = int(tg_bot_self.parameters_switch['time_out'])
    time_diff = (datetime.datetime.now() - tg_bot_self.time_last_call).total_seconds()
+   text = tg_bot_self.commands_switch[command[0]][0] + " " + ' '.join(command[1::])
+   #print(text)
 
    if(tg_bot_self.commands_switch[command[0]][1] == "time_out_off"):
-      tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command[0]][0], shell = True))
+      tg_bot_self.bot.send_message(message.chat.id, check_output(text, shell = True))
    else:
       if(time_diff >= time_out):
-         tg_bot_self.bot.send_message(message.chat.id, check_output(tg_bot_self.commands_switch[command[0]][0], shell = True))
+         tg_bot_self.bot.send_message(message.chat.id, check_output(text, shell = True))
          tg_bot_self.time_last_call = datetime.datetime.now()
       else:
          tg_bot_self.bot.send_message(message.chat.id, "Timeout: " + str(round(time_diff, 1)) + "/" + str(time_out))

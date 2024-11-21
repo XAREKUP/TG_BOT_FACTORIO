@@ -70,10 +70,13 @@ class tg_bot:
          except Exception as e:
             self.bot_log.error(f"User %s print command %s: {e}", message.from_user.username, message.text)
 
+
+      self.bot.infinity_polling(timeout = 10, long_polling_timeout = 5)
       #@self.bot.message_handler(content_types=["text"])
 
-      while True:
-         try: #добавляем try для бесперебойной работы
-            self.bot.polling(none_stop=True) #запуск бота
-         except:
-            time.sleep(10) #в случае падения
+#      while True:
+#         try: #добавляем try для бесперебойной работы
+#            self.bot.polling(none_stop=True) #запуск бота
+#         except Exception as e:
+#            time.sleep(10) #в случае падения
+#            self.bot_log.error(f"Telegram work ERROR: {e}")

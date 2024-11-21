@@ -1,10 +1,10 @@
 #!/bin/bash
-AWS_KEY_ID=$(grep AWS_KEY_ID ./data/parameters.txt | awk '{print $2}')
-AWS_SECRET_KEY=$(grep AWS_SECRET_KEY ./data/parameters.txt | awk '{print $2}')
+AWS_KEY_ID=$(grep aws_key_id ./data/parameters.txt | awk '{print $2}')
+AWS_SECRET_KEY=$(grep aws_secret_key ./data/parameters.txt | awk '{print $2}')
 #echo $AWS_KEY_ID
 #echo $AWS_SECRET_KEY
 LOCAL_FILE=/opt/factorio/saves/$1
-BUCKET_NAME=$(grep BUCKET_NAME ./data/parameters.txt | awk '{print $2}')
+BUCKET_NAME=$(grep bucket_name ./data/parameters.txt | awk '{print $2}')
 OBJECT_PATH=$1
 result=$(curl --silent \
   --request PUT \

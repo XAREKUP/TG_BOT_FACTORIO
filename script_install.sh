@@ -54,10 +54,10 @@ if [ "$s3_on_off" = "yes" ]; then
    read -p "Enter the bucket name: " bucket_name
    #read -p "Enter the zone: " zone
 else
-   aws_key_id=$("no")
-   aws_secret_key=$("no")
-   bucket_name=$("no")
-   zone=$("no")
+   aws_key_id='no'
+   aws_secret_key='no'
+   bucket_name='no'
+   zone='no'
 fi
 
 # Сохранение параметров в файл
@@ -75,8 +75,8 @@ echo "bucket_name ${bucket_name}" >> ./data/parameters.txt
 
 
 # Установка Factorio
-version=$(curl -s https://factorio.com/download/sha256sums/ | grep factorio_linux | head -n 1 | grep factorio_linux | grep -oP '[0-9]*\.[0-9]*\.[0-9]*')
-actual_verison_url='https://factorio.com/get-download/'$version'/headless/linux64'
+#version=$(curl -s https://factorio.com/download/sha256sums/ | grep factorio_linux | head -n 1 | grep factorio_linux | grep -oP '[0-9]*\.[0-9]*\.[0-9]*')
+actual_verison_url='https://factorio.com/get-download/stable/headless/linux64'
 sudo wget -O factorio_headless.tar.gz $actual_verison_url
 sudo tar -xf factorio_headless.tar.gz
 sudo mv factorio /opt

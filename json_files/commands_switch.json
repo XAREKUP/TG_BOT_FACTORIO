@@ -28,5 +28,11 @@
         "sh sh_scripts/put_save_s3.sh",
         "time_out_off",
         "all_users_message_off"
+    ],
+    "stat_vm": [
+        "sh sh_scripts/stat_vm.sh",
+        "time_out_off",
+        "all_users_message_off"
     ]
+
 }

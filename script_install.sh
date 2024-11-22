@@ -54,10 +54,10 @@ if [ "$s3_on_off" = "yes" ]; then
    read -p "Enter the bucket name: " bucket_name
    #read -p "Enter the zone: " zone
 else
-   aws_key_id=$()
-   aws_secret_key=$()
-   bucket_name=$()
-   zone=$()
+   aws_key_id=$("no")
+   aws_secret_key=$("no")
+   bucket_name=$("no")
+   zone=$("no")
 fi
 
 # Сохранение параметров в файл

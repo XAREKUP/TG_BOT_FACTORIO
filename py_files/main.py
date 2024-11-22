@@ -10,4 +10,9 @@ if __name__ == '__main__':
       rcon_commands_switch = json.loads(my_file.read())
 
    bot_tg = tg_bot(commands_switch, rcon_commands_switch)  # Инициализация бота с токеном из файла параметров
-   bot_tg.run_bot()  # Бесконечный цикл работы бота
+
+   while True:
+      try:
+         bot_tg.run_bot()  # Бесконечный цикл работы бота
+      except Exception as e:
+         print(e)

@@ -13,6 +13,7 @@ class tg_bot:
 
       self.parameters_switch = {}
       for line in lines_param:
+         #print(line)
          line = line.split()
          self.parameters_switch[line[0]] = line[1]
 
@@ -71,7 +72,13 @@ class tg_bot:
             self.bot_log.error(f"User %s print command %s: {e}", message.from_user.username, message.text)
 
 
-      self.bot.infinity_polling(timeout = 10, long_polling_timeout = 5)
+      while True:
+         try:
+            self.bot.polling(none_stop=True)
+         except Exception as e:
+            print("class:" + str(e))
+            time.sleep(15)
+
       #@self.bot.message_handler(content_types=["text"])
 
 #      while True:

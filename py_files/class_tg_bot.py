@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 import json
 
 class tg_bot:
-   def __init__(self, commands_switch, rcon_commands_switch):
+   def __init__(self, commands_switch, rcon_commands_switch, bot_log):
       self.commands_switch = commands_switch
       self.rcon_commands_switch = rcon_commands_switch
       parameters_filename = 'data/parameters.txt'
@@ -20,20 +20,7 @@ class tg_bot:
       self.bot = telebot.TeleBot(self.parameters_switch['tg_token']) #токен бота
       self.time_last_call = datetime.datetime(2011,11,11,11,11)
 
-      log_filename = str(datetime.datetime.now().strftime("logs/%Y_%m_%d_time_%H_%M_%S_bot.log"))
-#      logging.basicConfig(filename = log_filename, level=logging.INFO,
-#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-#      self.logger = logging.getLogger(__name__)
-      log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
-      self.logger = RotatingFileHandler(log_filename, mode='a', maxBytes=50*1024*1024,
-                                 backupCount=1, encoding=None, delay=0)
-      self.logger.setFormatter(log_formatter)
-      self.logger.setLevel(logging.INFO)
-
-      self.bot_log = logging.getLogger(__name__)
-      self.bot_log.setLevel(logging.INFO)
-
-      self.bot_log.addHandler(self.logger)
+      self.bot_log = bot_log
 
    def run_bot(self):
    ########BOT HELP########
@@ -76,7 +63,8 @@ class tg_bot:
          try:
             self.bot.polling(none_stop=True)
          except Exception as e:
-            print("class:" + str(e))
+            self.bot_log.error(f"Class polling error: {e}")
+            #print("class ERROR polling:" + str(e))
             time.sleep(15)
 
       #@self.bot.message_handler(content_types=["text"])

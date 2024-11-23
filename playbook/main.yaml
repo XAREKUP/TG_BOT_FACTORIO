@@ -1,5 +1,5 @@
 - name: Config vars
-  hosts: 127.0.0.1
+  hosts: all
   become: yes
   vars_prompt:
   - name: telegram_token
@@ -107,7 +107,7 @@
   - name: Gen daemon factorio_server
     ansible.builtin.template:
       src: daemon/factorio_server.j2
-      dest: /etc/systemd/system/factorio_server.service
+      dest: /etc/systemd/user/factorio_server.service
     tags: update
 
   - name: Gen daemon tg_bot 
@@ -119,10 +119,4 @@
   - name: Restart service bot
     ansible.builtin.systemd_service:
       daemon_reload: true
-    tags: update
-
-  - name: Restart service server
-    ansible.builtin.systemd_service:
-      state: restarted
-      name: factorio_server.service
     tags: update

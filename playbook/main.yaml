@@ -1,4 +1,4 @@
-- name: factorio_server
+- name: Config vars
   hosts: 127.0.0.1
   become: yes
   vars_prompt:
@@ -21,10 +21,26 @@
       name: pip
       state: latest
       update_cache: yes
-
+  
   - name: pip install rcon pytelegrambotapi
     ansible.builtin.shell:
       cmd: sudo pip3 install rcon pytelegrambotapi
+
+  - name: Install python pytelegrambotapi
+    ansible.builtin.pip:
+      name:  pytelegrambotapi
+      break_system_packages: true
+      umask: "0022"
+    become_method: sudo
+    become: True
+
+  - name: Install python rcon
+    ansible.builtin.pip:
+      name:  rcon
+      break_system_packages: true
+      umask: "0022"
+    become_method: sudo
+    become: True
 
   - name: Create folder factorio home
     ansible.builtin.file:
@@ -97,7 +113,7 @@
   - name: Gen daemon tg_bot 
     ansible.builtin.template:
       src: daemon/tg_bot_factorio.j2
-      dest: /etc/systemd/system/tg_bot_factorio.service
+      dest: /etc/systemd/user/tg_bot_factorio.service
     tags: update
 
   - name: Restart service bot
@@ -110,15 +126,3 @@
       state: restarted
       name: factorio_server.service
     tags: update
-
-  - name: Restart service bot
-    ansible.builtin.systemd_service:
-      state: restarted
-      name: tg_bot_factorio.service
-    tags: update
-  
-
-
-
-
-  

@@ -1,0 +1,8 @@
+[Unit]
+Description=TG bot Factorio
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+WorkingDirectory=/home/{{ ansible_env['SUDO_USER'] }}/factorio/tg_bot_factorio
+ExecStart=python3 /home/{{ ansible_env['SUDO_USER'] }}/factorio/tg_bot_factorio/py_files/main.py

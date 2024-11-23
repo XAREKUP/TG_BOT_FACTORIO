@@ -2,12 +2,12 @@
   hosts: 127.0.0.1
   become: yes
   vars_prompt:
-  - name: telegram token
+  - name: telegram_token
     prompt: "Enter Telegram token"
-    private: yes
-  - name : password RCON
+    private: no
+  - name : password_RCON
     prompt: "Enter the password for RCON"
-    private: yes
+    private: no
 
   tasks:
 
@@ -28,10 +28,81 @@
         - pytelegrambotapi
         - rcon
 
-  - name: Create folder factorio
+  - name: Create folder factorio home
     ansible.builtin.file:
       path: /home/{{ ansible_env['SUDO_USER'] }}/factorio
       owner: "{{ ansible_env['SUDO_USER'] }}"
       group: "{{ ansible_env['SUDO_USER'] }}"
       mode: '0764'
       state: directory
+
+  - name: Create folder factorio home
+    ansible.builtin.file:
+      path: /opt/factorio
+      owner: "{{ ansible_env['SUDO_USER'] }}"
+      group: "{{ ansible_env['SUDO_USER'] }}"
+      mode: '0764'
+      state: directory
+  
+  - name: Create folder factorio mods
+    ansible.builtin.file:
+      path: /opt/factorio/mods
+      owner: "{{ ansible_env['SUDO_USER'] }}"
+      group: "{{ ansible_env['SUDO_USER'] }}"
+      mode: '0764'
+      state: directory
+
+  - name: Gen parameters.txt
+    ansible.builtin.template:
+      src: conf_bot/parameters.j2
+      dest: /home/{{ ansible_env['SUDO_USER'] }}/factorio/tg_bot_factorio/data/parameters.txt
+    tags: conf
+
+  - name: Gen daemon factorio_server
+    ansible.builtin.template:
+      src: daemon/factorio_server.j2
+      dest: /etc/systemd/user/factorio_server.service
+    tags: conf
+
+  - name: Gen daemon tg_bot 
+    ansible.builtin.template:
+      src: daemon/tg_bot_factorio.j2
+      dest: /etc/systemd/user/tg_bot_factorio.service
+    tags: conf
+
+  - name: Daemon reload
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+    tags: conf
+
+  - name: Create folder server version
+    ansible.builtin.file:
+      path: /opt/factorio_server_version
+      owner: "{{ ansible_env['SUDO_USER'] }}"
+      group: "{{ ansible_env['SUDO_USER'] }}"
+      mode: '0764'
+      state: directory
+
+  - name: Download factorio server
+    ansible.builtin.get_url:
+      url: https://www.factorio.com/get-download/{{ server_version }}/headless/linux64
+      dest: /opt/factorio_server_version/factorio_{{ server_version }}_server.tar.gz
+      mode: '0440'
+      owner: "{{ ansible_env['SUDO_USER'] }}"
+    tags: update
+
+  - name: Unarchive\update server
+    ansible.builtin.unarchive:
+      src: /opt/factorio_server_version/factorio_{{ server_version }}_server.tar.gz
+      dest: /opt
+      remote_src: no
+      owner: "{{ ansible_env['SUDO_USER'] }}"
+    tags: unzip
+
+
+  
+
+
+
+
+  

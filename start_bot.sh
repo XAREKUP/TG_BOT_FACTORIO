@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 py_files/main.py
+systemctl --user start tg_bot_factorio.service

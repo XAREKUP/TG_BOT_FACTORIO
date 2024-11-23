@@ -61,7 +61,9 @@ else
 fi
 
 # Сохранение параметров в файл
-echo "tg_token ${tg_token}" > ./data/parameters.txt
+PWD=$(pwd)
+echo "path_bot ${PWD}" > ./data/parameters.txt
+echo "tg_token ${tg_token}" >> ./data/parameters.txt
 echo "time_out ${time_out}" >> ./data/parameters.txt
 echo "users_filename ./data/${users_filename}" >> ./data/parameters.txt
 #echo "rcon_ip ${rcon_ip}" >> ./parameters.txt
@@ -97,6 +99,17 @@ Description=Factorio Headless Server
 Type=simple
 ExecStart=/opt/factorio/bin/x64/factorio --start-server /opt/factorio/saves/world.zip  --rcon-port ${rcon_port} --rcon-password '${rcon_password}'
 " | sudo tee /etc/systemd/user/factorio_server.service
+
+sudo touch /etc/systemd/user/tg_bot_factorio.service
+echo "[Unit]
+Description=TG bot Factorio
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+WorkingDirectory=${PWD}
+ExecStart=python3 ${PWD}/py_files/main.py
+" | sudo tee /etc/systemd/user/tg_bot_factorio.service
 
 # Cоздание мира
 /opt/factorio/bin/x64/factorio --create /opt/factorio/saves/world.zip

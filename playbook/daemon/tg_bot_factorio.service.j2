@@ -1,0 +1,8 @@
+[Unit]
+Description=TG bot Factorio
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+WorkingDirectory=${PWD}
+ExecStart=python3 ${PWD}/py_files/main.py

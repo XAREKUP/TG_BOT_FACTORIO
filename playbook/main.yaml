@@ -1,0 +1,37 @@
+- name: Config vars
+  hosts: 127.0.0.1
+  become: yes
+  vars_prompt:
+  - name: telegram token
+    prompt: "Enter Telegram token"
+    private: yes
+  - name : password RCON
+    prompt: "Enter the password for RCON"
+    private: yes
+
+  tasks:
+
+  - name: Print all available facts
+    ansible.builtin.debug:
+      var: ansible_facts
+    tags: vars
+
+  - name: Install pip
+    ansible.builtin.apt:
+      name: pip
+      state: latest
+      update_cache: yes
+
+  - name: Install python package
+    ansible.builtin.pip:
+      name: 
+        - pytelegrambotapi
+        - rcon
+
+  - name: Create folder factorio
+    ansible.builtin.file:
+      path: /home/{{ ansible_env['SUDO_USER'] }}/factorio
+      owner: "{{ ansible_env['SUDO_USER'] }}"
+      group: "{{ ansible_env['SUDO_USER'] }}"
+      mode: '0764'
+      state: directory
